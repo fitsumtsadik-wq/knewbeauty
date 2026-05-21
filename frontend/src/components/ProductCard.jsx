@@ -15,10 +15,20 @@ export default function ProductCard({ product }) {
     <article className={`product-card ${!product.in_stock ? 'out-of-stock' : ''}`}>
       <div className="card-image">
         {product.image_url
-          ? <img src={product.image_url} alt={product.name} onError={e => { e.target.style.display='none'; e.target.nextSibling.style.display='flex' }} />
+          ? <img
+              src={product.image_url}
+              alt={product.name}
+              onError={e => {
+                e.target.style.display = 'none'
+                e.target.nextSibling.style.display = 'flex'
+              }}
+            />
           : null
         }
-        <div className="card-icon-fallback" style={{ display: product.image_url ? 'none' : 'flex' }}>
+        <div
+          className="card-icon-fallback"
+          style={{ display: product.image_url ? 'none' : 'flex' }}
+        >
           {icon}
         </div>
       </div>
@@ -31,9 +41,7 @@ export default function ProductCard({ product }) {
           </div>
           <span className="product-price">${product.price.toFixed(2)}</span>
         </div>
-
         <p className="product-description">{product.description}</p>
-
         <div className="card-footer">
           <span className="badge category">{product.category}</span>
           <span className="badge location">📍 {product.location}</span>

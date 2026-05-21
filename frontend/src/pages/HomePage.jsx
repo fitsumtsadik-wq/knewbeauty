@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
+import HeroSlider from '../components/HeroSlider'
 import SearchBar from '../components/SearchBar'
 import ProductList from '../components/ProductList'
 import API_BASE from '../config'
@@ -33,7 +34,7 @@ export default function HomePage() {
       const data = await res.json()
       setProducts(data)
     } catch {
-      setError('Could not reach the backend. Make sure Flask is running on port 5000.')
+      setError('Could not reach the backend.')
     } finally {
       setLoading(false)
     }
@@ -45,17 +46,19 @@ export default function HomePage() {
 
   return (
     <div className="app">
-      <header className="header">
-        <div className="header-inner">
-          <div className="logo">
-            <span>💄</span>
-            <h1>KnewBeauty</h1>
-          </div>
-          <p className="tagline">Find your perfect beauty products — and exactly where to grab them</p>
-        </div>
-      </header>
+      <nav className="navbar">
+        <span className="nav-logo">💄 KnewBeauty</span>
+        <Link to="/admin" className="nav-admin">Admin</Link>
+      </nav>
+
+      <HeroSlider />
 
       <main className="main">
+        <div className="section-heading">
+          <h2>Find Your Products</h2>
+          <p>Search by name, brand, or category — we'll tell you exactly where to find it in store</p>
+        </div>
+
         <SearchBar
           query={query}
           onQueryChange={setQuery}
@@ -63,6 +66,7 @@ export default function HomePage() {
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
         />
+
         <ProductList
           products={products}
           loading={loading}
@@ -72,8 +76,8 @@ export default function HomePage() {
       </main>
 
       <footer className="footer">
-        <p>© 2025 KnewBeauty</p>
-        <Link to="/admin" className="admin-link">Admin</Link>
+        <p className="footer-logo">💄 KnewBeauty</p>
+        <p>© 2025 KnewBeauty. Celebrating beauty in every shade.</p>
       </footer>
     </div>
   )
