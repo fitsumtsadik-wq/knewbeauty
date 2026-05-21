@@ -103,10 +103,45 @@ h1, h2, h3 {
 .nav-search-wrapper {
   flex: 1;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: .5rem;
   max-width: 640px;
+  position: relative;
 }
+
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: var(--black-2);
+  border: 1.5px solid rgba(201,168,76,.3);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  z-index: 150;
+  animation: slideDown .15s ease;
+}
+
+.search-dropdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  width: 100%;
+  padding: .75rem 1.1rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  text-align: left;
+  cursor: pointer;
+  transition: background .15s;
+  font-family: inherit;
+}
+.search-dropdown-item:last-child { border-bottom: none; }
+.search-dropdown-item:hover { background: rgba(201,168,76,.08); }
+
+.sdrop-name { font-size: .9rem; color: var(--cream); font-weight: 500; }
+.sdrop-meta { font-size: .75rem; color: var(--gray-text); }
 
 .brush-girl-wrapper {
   flex-shrink: 0;

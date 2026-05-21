@@ -4,6 +4,7 @@ import HeroSlider from '../components/HeroSlider'
 import StoreBanner from '../components/StoreBanner'
 import SearchBar from '../components/SearchBar'
 import ProductList from '../components/ProductList'
+import ProductModal from '../components/ProductModal'
 import SuggestionBox from '../components/SuggestionBox'
 import API_BASE from '../config'
 
@@ -15,6 +16,10 @@ export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [loading, setLoading]                   = useState(true)
   const [error, setError]                       = useState(null)
+  const [showDrop, setShowDrop]                 = useState(false)
+  const [navSelected, setNavSelected]           = useState(null)
+
+  const dropdownResults = query.trim().length > 0 ? products.slice(0, 7) : []
 
   // load everything once on mount
   useEffect(() => {
@@ -63,14 +68,28 @@ export default function HomePage() {
               className="nav-search-input"
               placeholder="Find your perfect product…"
               value={query}
-              onChange={e => setQuery(e.target.value)}
+              onChange={e => { setQuery(e.target.value); setShowDrop(true) }}
+              onFocus={() => setShowDrop(true)}
+              onBlur={() => setTimeout(() => setShowDrop(false), 150)}
             />
             {query && (
-              <button className="nav-clear-btn" onClick={() => setQuery('')}>✕</button>
+              <button className="nav-clear-btn" onClick={() => { setQuery(''); setShowDrop(false) }}>✕</button>
             )}
           </div>
+          {showDrop && dropdownResults.length > 0 && (
+            <div className="search-dropdown">
+              {dropdownResults.map(p => (
+                <button key={p.id} className="search-dropdown-item" onMouseDown={() => { setNavSelected(p); setQuery(''); setShowDrop(false) }}>
+                  <span className="sdrop-name">{p.name}</span>
+                  <span className="sdrop-meta">{p.brand} · {p.category} · ${parseFloat(p.price).toFixed(2)}</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </nav>
+
+      {navSelected && <ProductModal product={navSelected} onClose={() => setNavSelected(null)} />}
 
       <HeroSlider />
 
