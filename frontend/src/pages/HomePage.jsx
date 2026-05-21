@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import HeroSlider from '../components/HeroSlider'
 import StoreBanner from '../components/StoreBanner'
@@ -8,6 +8,7 @@ import SuggestionBox from '../components/SuggestionBox'
 import API_BASE from '../config'
 
 export default function HomePage() {
+  const [allProducts, setAllProducts]           = useState([])
   const [products, setProducts]                 = useState([])
   const [categories, setCategories]             = useState([])
   const [query, setQuery]                       = useState('')
@@ -15,36 +16,38 @@ export default function HomePage() {
   const [loading, setLoading]                   = useState(true)
   const [error, setError]                       = useState(null)
 
+  // load everything once on mount
   useEffect(() => {
-    fetch(`${API_BASE}/api/categories`)
-      .then(r => r.json())
-      .then(setCategories)
-      .catch(() => {})
+    Promise.all([
+      fetch(`${API_BASE}/api/products`).then(r => r.json()),
+      fetch(`${API_BASE}/api/categories`).then(r => r.json()).catch(() => []),
+    ])
+      .then(([prods, cats]) => {
+        setAllProducts(prods)
+        setProducts(prods)
+        setCategories(cats)
+      })
+      .catch(() => setError('Could not reach the backend.'))
+      .finally(() => setLoading(false))
   }, [])
 
-  const fetchProducts = useCallback(async (q, cat) => {
-    setLoading(true)
-    setError(null)
-    try {
-      const params = new URLSearchParams()
-      if (q)   params.set('q', q)
-      if (cat) params.set('category', cat)
-      const url = (q || cat)
-        ? `${API_BASE}/api/products/search?${params}`
-        : `${API_BASE}/api/products`
-      const res  = await fetch(url)
-      const data = await res.json()
-      setProducts(data)
-    } catch {
-      setError('Could not reach the backend.')
-    } finally {
-      setLoading(false)
+  // filter client-side instantly as the user types
+  useEffect(() => {
+    let filtered = allProducts
+    if (selectedCategory) {
+      filtered = filtered.filter(p => p.category === selectedCategory)
     }
-  }, [])
-
-  useEffect(() => {
-    fetchProducts(query, selectedCategory)
-  }, [query, selectedCategory, fetchProducts])
+    if (query.trim()) {
+      const q = query.toLowerCase()
+      filtered = filtered.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        (p.description && p.description.toLowerCase().includes(q))
+      )
+    }
+    setProducts(filtered)
+  }, [query, selectedCategory, allProducts])
 
   return (
     <div className="app">
