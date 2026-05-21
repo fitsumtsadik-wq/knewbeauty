@@ -49,7 +49,19 @@ export default function HomePage() {
     <div className="app">
       <nav className="navbar">
         <span className="nav-logo">💄 KnewBeauty</span>
-        <Link to="/admin" className="nav-admin">Admin</Link>
+        <div className="nav-search-bar">
+          <span className="nav-search-icon">🔍</span>
+          <input
+            type="text"
+            className="nav-search-input"
+            placeholder="Search products here…"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+          />
+          {query && (
+            <button className="nav-clear-btn" onClick={() => setQuery('')}>✕</button>
+          )}
+        </div>
       </nav>
 
       <HeroSlider />
@@ -81,6 +93,7 @@ export default function HomePage() {
       <footer className="footer">
         <p className="footer-logo">💄 KnewBeauty</p>
         <p>© 2025 KnewBeauty. Celebrating beauty in every shade.</p>
+        <Link to="/admin" className="footer-admin-link">admin</Link>
       </footer>
     </div>
   )
