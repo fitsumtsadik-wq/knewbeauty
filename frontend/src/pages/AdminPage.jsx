@@ -24,6 +24,7 @@ export default function AdminPage() {
   const [productForm, setProductForm] = useState(EMPTY_PRODUCT)
   const [editingProductId, setEditingProductId] = useState(null)
   const [productMsg, setProductMsg] = useState('')
+  const [uploading, setUploading] = useState(false)
 
   // analytics
   const [analytics, setAnalytics] = useState(null)
@@ -127,6 +128,34 @@ export default function AdminPage() {
     setEditingProductId(p.id)
     setTab('Products')
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  async function uploadImage(file) {
+    const key = import.meta.env.VITE_IMGBB_KEY
+    if (!key) { alert('No ImgBB key set. Paste the image URL manually.'); return }
+    setUploading(true)
+    try {
+      const b64 = await new Promise((res, rej) => {
+        const reader = new FileReader()
+        reader.onload = () => res(reader.result.split(',')[1])
+        reader.onerror = rej
+        reader.readAsDataURL(file)
+      })
+      const form = new FormData()
+      form.append('key', key)
+      form.append('image', b64)
+      const r = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: form })
+      const data = await r.json()
+      if (data.success) {
+        setProductForm(f => ({ ...f, image_url: data.data.url }))
+      } else {
+        alert('Upload failed. Try pasting the URL manually.')
+      }
+    } catch {
+      alert('Upload error. Try pasting the URL manually.')
+    } finally {
+      setUploading(false)
+    }
   }
 
   // ── Suggestions ───────────────────────────────────────────────────────────
@@ -286,7 +315,7 @@ export default function AdminPage() {
               {productMsg && <p className="admin-message">{productMsg}</p>}
               <form onSubmit={saveProduct} className="admin-form">
                 <div className="form-grid">
-                  {[['name','Product Name'],['brand','Brand'],['category','Category'],['price','Price ($)'],['location','Store Location'],['image_url','Image URL']].map(([k,l]) => (
+                  {[['name','Product Name'],['brand','Brand'],['category','Category'],['price','Price ($)'],['location','Store Location']].map(([k,l]) => (
                     <label key={k} className="form-label">{l}
                       <input className="form-input" value={productForm[k]}
                         onChange={e => setProductForm(f => ({...f, [k]: e.target.value}))}
@@ -294,6 +323,17 @@ export default function AdminPage() {
                     </label>
                   ))}
                 </div>
+                <label className="form-label">Product Photo
+                  <div className="image-upload-row">
+                    <input className="form-input" value={productForm.image_url}
+                      onChange={e => setProductForm(f => ({...f, image_url: e.target.value}))}
+                      placeholder="Paste image URL, or click Upload Photo →" />
+                    <button type="button" className="btn-upload" disabled={uploading}
+                      onClick={() => { const inp = document.createElement('input'); inp.type='file'; inp.accept='image/*'; inp.onchange=e=>uploadImage(e.target.files[0]); inp.click() }}>
+                      {uploading ? 'Uploading…' : '📷 Upload'}
+                    </button>
+                  </div>
+                </label>
                 <label className="form-label">Description
                   <textarea className="form-input" rows={2} value={productForm.description}
                     onChange={e => setProductForm(f => ({...f, description: e.target.value}))} />
