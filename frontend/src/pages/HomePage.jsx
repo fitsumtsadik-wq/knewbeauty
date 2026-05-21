@@ -4,6 +4,7 @@ import HeroSlider from '../components/HeroSlider'
 import StoreBanner from '../components/StoreBanner'
 import SearchBar from '../components/SearchBar'
 import ProductList from '../components/ProductList'
+import SuggestionBox from '../components/SuggestionBox'
 import API_BASE from '../config'
 
 export default function HomePage() {
@@ -71,6 +72,8 @@ export default function HomePage() {
       <HeroSlider />
 
       <StoreBanner />
+
+      <SuggestionBox />
 
       <main className="main">
         <div className="section-heading">
@@ -159,6 +162,7 @@ export default function HomePage() {
 
         <div className="footer-bottom">
           <p>© 2025 KnewBeauty. All rights reserved.</p>
+          <Link to="/blog" className="directions-link">Beauty Articles →</Link>
           <Link to="/admin" className="footer-admin-link">admin</Link>
         </div>
       </footer>
