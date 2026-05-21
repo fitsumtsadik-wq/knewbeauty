@@ -113,7 +113,8 @@ h1, h2, h3 {
   width: auto;
   flex-shrink: 0;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(183,110,121,.4));
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 2px 8px rgba(183,110,121,.4)) contrast(1.1) brightness(0.95);
 }
 
 .nav-search-bar {
