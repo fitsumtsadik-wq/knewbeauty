@@ -7,6 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "beauty_store.db")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "knewbeauty2025")
 
 
 def get_db():
@@ -27,38 +28,58 @@ def init_db():
             price       REAL    NOT NULL,
             description TEXT,
             in_stock    INTEGER DEFAULT 1,
-            location    TEXT
+            location    TEXT,
+            image_url   TEXT
         )
     """)
+    try:
+        cur.execute("ALTER TABLE products ADD COLUMN image_url TEXT")
+    except Exception:
+        pass
+
     cur.execute("SELECT COUNT(*) FROM products")
     if cur.fetchone()[0] == 0:
         products = [
-            ("Rose Glow Foundation",        "LuminaBeauty", "Foundation", 34.99, "Full-coverage buildable formula with SPF 15",            1, "Aisle 3, Shelf B"),
-            ("HD Powder Foundation",         "ColorCraft",   "Foundation", 29.99, "Lightweight powder for a natural finish",                 1, "Aisle 3, Shelf A"),
-            ("Velvet Matte Lipstick",        "LuminaBeauty", "Lips",       18.99, "Long-lasting matte with a comfortable feel",             1, "Aisle 1, Shelf A"),
-            ("Glossy Lip Gloss",             "PureGlow",     "Lips",       12.99, "High-shine, non-sticky formula",                         1, "Aisle 1, Shelf C"),
-            ("Coconut Lip Balm",             "PureGlow",     "Lips",        8.99, "Nourishing coconut-infused daily lip balm",              1, "Aisle 1, Shelf B"),
-            ("Hydra Boost Serum",            "GlowLab",      "Skincare",   52.00, "Hyaluronic acid serum for deep hydration",               1, "Aisle 5, Shelf C"),
-            ("SPF 50 Tinted Moisturizer",    "GlowLab",      "Skincare",   38.00, "Lightweight sun protection with a skin-tone tint",       1, "Aisle 5, Shelf A"),
-            ("Retinol Night Cream",          "GlowLab",      "Skincare",   65.00, "Anti-aging retinol cream for overnight renewal",         1, "Aisle 5, Shelf B"),
-            ("Vitamin C Brightening Mask",   "GlowLab",      "Skincare",   45.00, "Weekly brightening treatment mask",                      1, "Aisle 5, Shelf D"),
-            ("Smoky Eye Palette",            "ColorCraft",   "Eyes",       42.50, "12 versatile eyeshadow shades",                          1, "Aisle 2, Shelf D"),
-            ("Curl Defining Mascara",        "ColorCraft",   "Eyes",       16.99, "Volumizing and curling mascara",                         1, "Aisle 2, Shelf C"),
-            ("Waterproof Eyeliner",          "ColorCraft",   "Eyes",       14.50, "Precise waterproof gel eyeliner",                        1, "Aisle 2, Shelf B"),
-            ("Natural Blush",                "PureGlow",     "Cheeks",     22.00, "Buildable peachy-pink powder blush",                     0, "Aisle 2, Shelf A"),
-            ("Bronzing Drops",               "ColorCraft",   "Face",       32.00, "Customisable liquid bronzer drops",                      1, "Aisle 3, Shelf D"),
-            ("Contouring Stick",             "LuminaBeauty", "Face",       28.00, "Easy-blend contouring and highlighting stick",           1, "Aisle 3, Shelf A"),
-            ("Setting Powder",               "LuminaBeauty", "Face",       26.99, "Translucent finishing powder for all skin tones",        0, "Aisle 3, Shelf C"),
+            ("Rose Glow Foundation",       "LuminaBeauty", "Foundation", 34.99, "Full-coverage buildable formula with SPF 15",       1, "Aisle 3, Shelf B", ""),
+            ("HD Powder Foundation",        "ColorCraft",   "Foundation", 29.99, "Lightweight powder for a natural finish",            1, "Aisle 3, Shelf A", ""),
+            ("Velvet Matte Lipstick",       "LuminaBeauty", "Lips",       18.99, "Long-lasting matte with a comfortable feel",        1, "Aisle 1, Shelf A", ""),
+            ("Glossy Lip Gloss",            "PureGlow",     "Lips",       12.99, "High-shine, non-sticky formula",                    1, "Aisle 1, Shelf C", ""),
+            ("Coconut Lip Balm",            "PureGlow",     "Lips",        8.99, "Nourishing coconut-infused daily lip balm",         1, "Aisle 1, Shelf B", ""),
+            ("Hydra Boost Serum",           "GlowLab",      "Skincare",   52.00, "Hyaluronic acid serum for deep hydration",          1, "Aisle 5, Shelf C", ""),
+            ("SPF 50 Tinted Moisturizer",   "GlowLab",      "Skincare",   38.00, "Lightweight sun protection with a skin-tone tint",  1, "Aisle 5, Shelf A", ""),
+            ("Retinol Night Cream",         "GlowLab",      "Skincare",   65.00, "Anti-aging retinol cream for overnight renewal",    1, "Aisle 5, Shelf B", ""),
+            ("Vitamin C Brightening Mask",  "GlowLab",      "Skincare",   45.00, "Weekly brightening treatment mask",                 1, "Aisle 5, Shelf D", ""),
+            ("Smoky Eye Palette",           "ColorCraft",   "Eyes",       42.50, "12 versatile eyeshadow shades",                     1, "Aisle 2, Shelf D", ""),
+            ("Curl Defining Mascara",       "ColorCraft",   "Eyes",       16.99, "Volumizing and curling mascara",                    1, "Aisle 2, Shelf C", ""),
+            ("Waterproof Eyeliner",         "ColorCraft",   "Eyes",       14.50, "Precise waterproof gel eyeliner",                   1, "Aisle 2, Shelf B", ""),
+            ("Natural Blush",               "PureGlow",     "Cheeks",     22.00, "Buildable peachy-pink powder blush",                0, "Aisle 2, Shelf A", ""),
+            ("Bronzing Drops",              "ColorCraft",   "Face",       32.00, "Customisable liquid bronzer drops",                 1, "Aisle 3, Shelf D", ""),
+            ("Contouring Stick",            "LuminaBeauty", "Face",       28.00, "Easy-blend contouring and highlighting stick",      1, "Aisle 3, Shelf A", ""),
+            ("Setting Powder",              "LuminaBeauty", "Face",       26.99, "Translucent finishing powder for all skin tones",   0, "Aisle 3, Shelf C", ""),
         ]
         cur.executemany(
-            "INSERT INTO products (name, brand, category, price, description, in_stock, location) VALUES (?,?,?,?,?,?,?)",
+            "INSERT INTO products (name, brand, category, price, description, in_stock, location, image_url) VALUES (?,?,?,?,?,?,?,?)",
             products,
         )
         conn.commit()
     conn.close()
 
 
-# ── Routes ──────────────────────────────────────────────────────────────────
+def auth(req):
+    return req.headers.get("X-Admin-Password") == ADMIN_PASSWORD
+
+
+# ── Admin auth ───────────────────────────────────────────────────────────────
+
+@app.route("/api/admin/verify", methods=["POST"])
+def verify_admin():
+    data = request.json or {}
+    if data.get("password") == ADMIN_PASSWORD:
+        return jsonify({"ok": True})
+    return jsonify({"ok": False}), 401
+
+
+# ── Products ─────────────────────────────────────────────────────────────────
 
 @app.route("/api/products", methods=["GET"])
 def get_products():
@@ -68,24 +89,66 @@ def get_products():
     return jsonify([dict(r) for r in rows])
 
 
+@app.route("/api/products", methods=["POST"])
+def create_product():
+    if not auth(request):
+        return jsonify({"error": "Unauthorized"}), 401
+    d = request.json
+    conn = get_db()
+    cur = conn.execute(
+        "INSERT INTO products (name, brand, category, price, description, in_stock, location, image_url) VALUES (?,?,?,?,?,?,?,?)",
+        (d["name"], d["brand"], d["category"], float(d["price"]),
+         d.get("description", ""), int(d.get("in_stock", 1)),
+         d.get("location", ""), d.get("image_url", "")),
+    )
+    conn.commit()
+    row = conn.execute("SELECT * FROM products WHERE id=?", (cur.lastrowid,)).fetchone()
+    conn.close()
+    return jsonify(dict(row)), 201
+
+
+@app.route("/api/products/<int:pid>", methods=["PUT"])
+def update_product(pid):
+    if not auth(request):
+        return jsonify({"error": "Unauthorized"}), 401
+    d = request.json
+    conn = get_db()
+    conn.execute(
+        "UPDATE products SET name=?, brand=?, category=?, price=?, description=?, in_stock=?, location=?, image_url=? WHERE id=?",
+        (d["name"], d["brand"], d["category"], float(d["price"]),
+         d.get("description", ""), int(d.get("in_stock", 1)),
+         d.get("location", ""), d.get("image_url", ""), pid),
+    )
+    conn.commit()
+    row = conn.execute("SELECT * FROM products WHERE id=?", (pid,)).fetchone()
+    conn.close()
+    return jsonify(dict(row))
+
+
+@app.route("/api/products/<int:pid>", methods=["DELETE"])
+def delete_product(pid):
+    if not auth(request):
+        return jsonify({"error": "Unauthorized"}), 401
+    conn = get_db()
+    conn.execute("DELETE FROM products WHERE id=?", (pid,))
+    conn.commit()
+    conn.close()
+    return jsonify({"ok": True})
+
+
 @app.route("/api/products/search", methods=["GET"])
 def search_products():
     query    = request.args.get("q", "").strip()
     category = request.args.get("category", "").strip()
-
     sql, params = "SELECT * FROM products WHERE 1=1", []
-
     if query:
         sql += " AND (name LIKE ? OR brand LIKE ? OR description LIKE ?)"
         like = f"%{query}%"
         params += [like, like, like]
-
     if category:
         sql += " AND category = ?"
         params.append(category)
-
     sql += " ORDER BY category, name"
-
     conn = get_db()
     rows = conn.execute(sql, params).fetchall()
     conn.close()

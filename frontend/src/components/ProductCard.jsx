@@ -13,7 +13,15 @@ export default function ProductCard({ product }) {
 
   return (
     <article className={`product-card ${!product.in_stock ? 'out-of-stock' : ''}`}>
-      <div className="card-icon">{icon}</div>
+      <div className="card-image">
+        {product.image_url
+          ? <img src={product.image_url} alt={product.name} onError={e => { e.target.style.display='none'; e.target.nextSibling.style.display='flex' }} />
+          : null
+        }
+        <div className="card-icon-fallback" style={{ display: product.image_url ? 'none' : 'flex' }}>
+          {icon}
+        </div>
+      </div>
 
       <div className="card-body">
         <div className="card-top">
