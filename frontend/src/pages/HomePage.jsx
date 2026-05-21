@@ -51,18 +51,21 @@ export default function HomePage() {
         <span className="nav-logo">
           <span className="nav-logo-knew">Knew</span><span className="nav-logo-beauty">Beauty</span>
         </span>
-        <div className="nav-search-bar">
-          <span className="nav-search-icon">🔍</span>
-          <input
-            type="text"
-            className="nav-search-input"
-            placeholder="Search products here…"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-          />
-          {query && (
-            <button className="nav-clear-btn" onClick={() => setQuery('')}>✕</button>
-          )}
+        <div className="nav-search-wrapper">
+          <span className="nav-brush-hint">💄</span>
+          <div className="nav-search-bar">
+            <span className="nav-search-icon">✦</span>
+            <input
+              type="text"
+              className="nav-search-input"
+              placeholder="Find your perfect product…"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+            />
+            {query && (
+              <button className="nav-clear-btn" onClick={() => setQuery('')}>✕</button>
+            )}
+          </div>
         </div>
       </nav>
 
