@@ -16,7 +16,6 @@ export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [loading, setLoading]                   = useState(true)
   const [error, setError]                       = useState(null)
-  const [showDrop, setShowDrop]                 = useState(false)
   const [navSelected, setNavSelected]           = useState(null)
 
   const dropdownResults = query.trim().length > 0
@@ -77,18 +76,16 @@ export default function HomePage() {
               className="nav-search-input"
               placeholder="Find your perfect product…"
               value={query}
-              onChange={e => { setQuery(e.target.value); setShowDrop(true) }}
-              onFocus={() => setShowDrop(true)}
-              onBlur={() => setTimeout(() => setShowDrop(false), 150)}
+              onChange={e => setQuery(e.target.value)}
             />
             {query && (
-              <button className="nav-clear-btn" onClick={() => { setQuery(''); setShowDrop(false) }}>✕</button>
+              <button className="nav-clear-btn" onClick={() => setQuery('')}>✕</button>
             )}
           </div>
-          {showDrop && dropdownResults.length > 0 && (
+          {query.trim() && dropdownResults.length > 0 && (
             <div className="search-dropdown">
               {dropdownResults.map(p => (
-                <button key={p.id} className="search-dropdown-item" onMouseDown={() => { setNavSelected(p); setQuery(''); setShowDrop(false) }}>
+                <button key={p.id} className="search-dropdown-item" onClick={() => { setNavSelected(p); setQuery('') }}>
                   <span className="sdrop-name">{p.name}</span>
                   <span className="sdrop-meta">{p.brand} · {p.category} · ${parseFloat(p.price).toFixed(2)}</span>
                 </button>
