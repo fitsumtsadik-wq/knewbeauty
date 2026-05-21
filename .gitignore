@@ -1,0 +1,6 @@
+frontend/node_modules
+backend/__pycache__
+backend/beauty_store.db
+*.pyc
+.env
+new.py
