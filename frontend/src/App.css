@@ -82,21 +82,17 @@ h1, h2, h3 {
 
 .nav-logo-knew {
   color: #7B2FBE;
-  font-style: normal;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 1px 1px 0 #5a1f9a, 2px 2px 0 #3d1169;
+  font-style: italic;
 }
 
 .nav-logo-beauty {
   color: var(--white);
   font-style: normal;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-weight: 400;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  margin-left: 6px;
-  text-shadow: 1px 1px 0 rgba(255,255,255,.2);
+  font-size: 1rem;
+  margin-left: 4px;
 }
 
 .nav-search-bar {
