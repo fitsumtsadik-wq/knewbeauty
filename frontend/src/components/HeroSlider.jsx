@@ -2,23 +2,23 @@ import { useState, useEffect } from 'react'
 
 const SLIDES = [
   {
-    url: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=1400&q=80',
+    url: 'https://images.pexels.com/photos/13734819/pexels-photo-13734819.jpeg',
     caption: 'Celebrating Every Shade of Beautiful',
   },
   {
-    url: 'https://images.unsplash.com/photo-1596704017254-9b121068fb31?auto=format&fit=crop&w=1400&q=80',
+    url: 'https://images.pexels.com/photos/6923561/pexels-photo-6923561.jpeg',
     caption: 'Luxury Beauty for Every Skin Tone',
   },
   {
-    url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1400&q=80',
+    url: 'https://images.pexels.com/photos/17043160/pexels-photo-17043160.jpeg',
     caption: 'Your Glow. Your Story.',
   },
   {
-    url: 'https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?auto=format&fit=crop&w=1400&q=80',
+    url: 'https://images.pexels.com/photos/27987128/pexels-photo-27987128.jpeg',
     caption: 'Radiant in Every Tone',
   },
   {
-    url: 'https://images.unsplash.com/photo-1488716820095-cbe80883c496?auto=format&fit=crop&w=1400&q=80',
+    url: 'https://images.pexels.com/photos/2301283/pexels-photo-2301283.jpeg',
     caption: 'Beauty Has No Limits',
   },
 ]
