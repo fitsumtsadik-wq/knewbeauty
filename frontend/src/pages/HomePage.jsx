@@ -91,9 +91,70 @@ export default function HomePage() {
       </main>
 
       <footer className="footer">
-        <p className="footer-logo">💄 KnewBeauty</p>
-        <p>© 2025 KnewBeauty. Celebrating beauty in every shade.</p>
-        <Link to="/admin" className="footer-admin-link">admin</Link>
+        <div className="footer-grid">
+
+          <div className="footer-col">
+            <p className="footer-logo">💄 KnewBeauty</p>
+            <p className="footer-tagline">Celebrating beauty in every shade.</p>
+            <a
+              href="https://www.instagram.com/knewbeautyDC"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="instagram-link"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+              @knewbeautyDC
+            </a>
+          </div>
+
+          <div className="footer-col">
+            <h4 className="footer-col-title">Visit Us</h4>
+            <p className="footer-address">
+              📍 5227 Georgia Ave NW<br />
+              Washington, DC
+            </p>
+            <a
+              href="https://www.google.com/maps/search/5227+Georgia+Ave+NW+Washington+DC"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="directions-link"
+            >
+              Get Directions →
+            </a>
+          </div>
+
+          <div className="footer-col footer-map-col">
+            <h4 className="footer-col-title">Find Us</h4>
+            <a
+              href="https://www.google.com/maps/search/5227+Georgia+Ave+NW+Washington+DC"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="map-wrapper"
+              title="Open in Google Maps"
+            >
+              <iframe
+                title="KnewBeauty Location"
+                src="https://maps.google.com/maps?q=5227+Georgia+Ave+NW+Washington+DC&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                className="footer-map"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <div className="map-click-overlay">
+                <span>Open in Google Maps ↗</span>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
+        <div className="footer-bottom">
+          <p>© 2025 KnewBeauty. All rights reserved.</p>
+          <Link to="/admin" className="footer-admin-link">admin</Link>
+        </div>
       </footer>
     </div>
   )
