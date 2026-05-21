@@ -48,7 +48,9 @@ export default function HomePage() {
   return (
     <div className="app">
       <nav className="navbar">
-        <span className="nav-logo">💄 KnewBeauty</span>
+        <span className="nav-logo">
+          <span className="nav-logo-knew">Knew</span><span className="nav-logo-beauty">Beauty</span>
+        </span>
         <div className="nav-search-bar">
           <span className="nav-search-icon">🔍</span>
           <input
@@ -94,7 +96,9 @@ export default function HomePage() {
         <div className="footer-grid">
 
           <div className="footer-col">
-            <p className="footer-logo">💄 KnewBeauty</p>
+            <p className="footer-logo">
+              <span className="nav-logo-knew">Knew</span><span className="nav-logo-beauty">Beauty</span>
+            </p>
             <p className="footer-tagline">Celebrating beauty in every shade.</p>
             <a
               href="https://www.instagram.com/knewbeautyDC"

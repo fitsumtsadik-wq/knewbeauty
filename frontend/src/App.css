@@ -71,10 +71,28 @@ h1, h2, h3 {
 
 .nav-logo {
   font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
+  letter-spacing: 1.5px;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+.nav-logo-knew {
   color: var(--gold);
-  letter-spacing: 1px;
+  font-style: italic;
+}
+
+.nav-logo-beauty {
+  color: var(--white);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin-left: 4px;
 }
 
 .nav-search-bar {
