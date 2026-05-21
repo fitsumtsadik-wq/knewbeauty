@@ -250,6 +250,7 @@ h1, h2, h3 {
   font-weight: 500;
   white-space: nowrap;
   flex-shrink: 0;
+  margin-left: auto;
   transition: color .2s;
 }
 .nav-instagram:hover { color: var(--gold); }
