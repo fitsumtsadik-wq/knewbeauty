@@ -19,7 +19,16 @@ export default function HomePage() {
   const [showDrop, setShowDrop]                 = useState(false)
   const [navSelected, setNavSelected]           = useState(null)
 
-  const dropdownResults = query.trim().length > 0 ? products.slice(0, 7) : []
+  const dropdownResults = query.trim().length > 0
+    ? allProducts.filter(p => {
+        const q = query.toLowerCase()
+        if (selectedCategory && p.category !== selectedCategory) return false
+        return p.name.toLowerCase().includes(q) ||
+          p.brand.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q) ||
+          (p.description && p.description.toLowerCase().includes(q))
+      }).slice(0, 7)
+    : []
 
   // load everything once on mount
   useEffect(() => {
