@@ -115,10 +115,10 @@ h1, h2, h3 {
 }
 
 .brush-girl-svg {
-  height: 58px;
+  height: 62px;
   width: auto;
   overflow: visible;
-  filter: drop-shadow(0 2px 10px rgba(183,110,121,.5));
+  filter: drop-shadow(0 2px 12px rgba(201,168,76,.4));
 }
 
 @keyframes brushSwing {
@@ -149,6 +149,7 @@ h1, h2, h3 {
 .sparkle-1 { animation: sparkleFloat 1.6s ease-in-out infinite .1s; }
 .sparkle-2 { animation: sparkleFloat 1.6s ease-in-out infinite .3s; }
 .sparkle-3 { animation: sparkleFloat 1.6s ease-in-out infinite .5s; }
+.sparkle-4 { animation: sparkleFloat 1.6s ease-in-out infinite .7s; }
 
 .nav-search-bar {
   flex: 1;
