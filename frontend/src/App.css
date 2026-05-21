@@ -1025,7 +1025,34 @@ textarea.form-input { resize: vertical; }
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .admin-main       { grid-template-columns: 1fr; }
-  .hero-sign        { width: 130px; top: 70px; right: 1rem; }
+
+  .navbar {
+    flex-wrap: wrap;
+    gap: .6rem;
+    padding: .7rem 1rem;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-brush-girl {
+    height: 38px;
+  }
+
+  .nav-search-wrapper {
+    width: 100%;
+    max-width: 100%;
+    order: 3;
+  }
+
+  .nav-search-bar {
+    width: 100%;
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
 }
 @media (max-width: 480px) {
   .product-grid { grid-template-columns: 1fr; }
