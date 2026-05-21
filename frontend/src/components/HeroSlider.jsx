@@ -76,11 +76,6 @@ export default function HeroSlider() {
         ))}
       </div>
 
-      {/* store sign */}
-      <div className="hero-sign">
-        <img src="https://i.imgur.com/k6wfbhX.jpg" alt="Knew Beauty Store" />
-      </div>
-
       {/* text */}
       <div className={`hero-text ${fading ? 'fading' : ''}`}>
         <p className="hero-sub">Welcome to</p>

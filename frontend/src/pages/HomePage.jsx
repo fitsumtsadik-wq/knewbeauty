@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import HeroSlider from '../components/HeroSlider'
+import StoreBanner from '../components/StoreBanner'
 import SearchBar from '../components/SearchBar'
 import ProductList from '../components/ProductList'
 import API_BASE from '../config'
@@ -52,6 +53,8 @@ export default function HomePage() {
       </nav>
 
       <HeroSlider />
+
+      <StoreBanner />
 
       <main className="main">
         <div className="section-heading">

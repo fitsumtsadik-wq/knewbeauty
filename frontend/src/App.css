@@ -216,6 +216,72 @@ h1, h2, h3 {
   box-shadow: var(--glow-gold);
 }
 
+/* ── Store banner ────────────────────────────────────────────────────────── */
+.store-banner {
+  display: flex;
+  align-items: stretch;
+  min-height: 360px;
+  background: var(--black-2);
+  border-top: 1px solid rgba(201,168,76,.15);
+  border-bottom: 1px solid rgba(201,168,76,.15);
+  animation: fadeIn .8s ease both;
+}
+
+.store-banner-image {
+  position: relative;
+  flex: 1;
+  min-height: 300px;
+}
+
+.store-banner-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.store-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--black-2) 100%);
+}
+
+.store-banner-text {
+  flex: 0 0 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem;
+  animation: fadeUp .8s ease .2s both;
+}
+
+.store-banner-sub {
+  font-size: .8rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .75rem;
+}
+
+.store-banner-title {
+  font-size: 2.8rem;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.store-banner-desc {
+  font-size: .95rem;
+  color: var(--gray-text);
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .store-banner         { flex-direction: column; }
+  .store-banner-text    { flex: none; padding: 2rem 1.5rem; }
+  .store-banner-overlay { background: linear-gradient(to bottom, transparent 50%, var(--black-2) 100%); }
+}
+
 /* ── Layout ──────────────────────────────────────────────────────────────── */
 .app {
   display: flex;
