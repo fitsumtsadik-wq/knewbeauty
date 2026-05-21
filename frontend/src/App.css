@@ -71,7 +71,7 @@ h1, h2, h3 {
 
 .nav-logo {
   font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: 1.5px;
   line-height: 1;
@@ -81,18 +81,22 @@ h1, h2, h3 {
 }
 
 .nav-logo-knew {
-  color: var(--gold);
-  font-style: italic;
+  color: #7B2FBE;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 #5a1f9a, 2px 2px 0 #3d1169;
 }
 
 .nav-logo-beauty {
   color: var(--white);
   font-style: normal;
-  font-weight: 400;
-  letter-spacing: 3px;
+  font-weight: 700;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  font-size: 1rem;
-  margin-left: 4px;
+  margin-left: 6px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,.2);
 }
 
 .nav-search-bar {
@@ -623,8 +627,10 @@ h1, h2, h3 {
 
 .footer-logo {
   font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  color: var(--gold);
+  font-size: 1.6rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0;
 }
 
 .footer-tagline { font-size: .85rem; color: var(--gray-text); line-height: 1.6; }
