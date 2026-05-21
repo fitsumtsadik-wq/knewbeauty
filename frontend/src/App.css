@@ -95,11 +95,6 @@ h1, h2, h3 {
   margin-left: 4px;
 }
 
-@keyframes brushPoint {
-  0%, 100% { transform: translateX(0) rotate(-20deg); }
-  50%       { transform: translateX(6px) rotate(-10deg); }
-}
-
 @keyframes searchPulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(183,110,121,.4), 0 4px 20px rgba(0,0,0,.4); }
   50%       { box-shadow: 0 0 0 6px rgba(183,110,121,.0), 0 4px 20px rgba(0,0,0,.4); }
@@ -113,12 +108,12 @@ h1, h2, h3 {
   max-width: 640px;
 }
 
-.nav-brush-hint {
-  font-size: 1.4rem;
-  display: inline-block;
-  animation: brushPoint 1.4s ease-in-out infinite;
-  transform-origin: bottom center;
+.nav-brush-girl {
+  height: 52px;
+  width: auto;
   flex-shrink: 0;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(183,110,121,.4));
 }
 
 .nav-search-bar {

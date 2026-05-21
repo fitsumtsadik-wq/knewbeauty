@@ -52,7 +52,11 @@ export default function HomePage() {
           <span className="nav-logo-knew">Knew</span><span className="nav-logo-beauty">Beauty</span>
         </span>
         <div className="nav-search-wrapper">
-          <span className="nav-brush-hint">💄</span>
+          <img
+            src="https://media.giphy.com/media/o9BnuS4XvUBDG/giphy.gif"
+            alt="beauty assistant"
+            className="nav-brush-girl"
+          />
           <div className="nav-search-bar">
             <span className="nav-search-icon">✦</span>
             <input
