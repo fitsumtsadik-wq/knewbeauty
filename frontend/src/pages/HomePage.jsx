@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import HeroSlider from '../components/HeroSlider'
 import StoreBanner from '../components/StoreBanner'
+import BrushGirl from '../components/BrushGirl'
 import SearchBar from '../components/SearchBar'
 import ProductList from '../components/ProductList'
 import API_BASE from '../config'
@@ -52,11 +53,7 @@ export default function HomePage() {
           <span className="nav-logo-knew">Knew</span><span className="nav-logo-beauty">Beauty</span>
         </span>
         <div className="nav-search-wrapper">
-          <img
-            src="https://media.giphy.com/media/o9BnuS4XvUBDG/giphy.gif"
-            alt="beauty assistant"
-            className="nav-brush-girl"
-          />
+          <BrushGirl />
           <div className="nav-search-bar">
             <span className="nav-search-icon">✦</span>
             <input
