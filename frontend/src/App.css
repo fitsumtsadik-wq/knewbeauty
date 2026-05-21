@@ -1037,7 +1037,9 @@ textarea.form-input { resize: vertical; }
   }
 
   .nav-brush-girl {
-    height: 38px;
+    height: 36px;
+    mix-blend-mode: normal;
+    filter: none;
   }
 
   .nav-search-wrapper {
