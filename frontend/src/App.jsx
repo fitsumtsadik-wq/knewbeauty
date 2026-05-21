@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import SearchBar from './components/SearchBar'
 import ProductList from './components/ProductList'
+import API_BASE from './config'
 
 export default function App() {
   const [products, setProducts]               = useState([])
@@ -11,7 +12,7 @@ export default function App() {
   const [error, setError]                     = useState(null)
 
   useEffect(() => {
-    fetch('/api/categories')
+    fetch(`${API_BASE}/api/categories`)
       .then(r => r.json())
       .then(setCategories)
       .catch(() => {})
@@ -25,8 +26,8 @@ export default function App() {
       if (q)   params.set('q', q)
       if (cat) params.set('category', cat)
       const url = (q || cat)
-        ? `/api/products/search?${params}`
-        : '/api/products'
+        ? `${API_BASE}/api/products/search?${params}`
+        : `${API_BASE}/api/products`
       const res  = await fetch(url)
       const data = await res.json()
       setProducts(data)
