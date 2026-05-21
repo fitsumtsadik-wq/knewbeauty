@@ -240,6 +240,20 @@ h1, h2, h3 {
 }
 .nav-clear-btn:hover { color: var(--white); }
 
+.nav-instagram {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  color: var(--rose-light);
+  text-decoration: none;
+  font-size: .8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color .2s;
+}
+.nav-instagram:hover { color: var(--gold); }
+
 .footer-admin-link {
   display: block;
   margin-top: 1.5rem;
@@ -1464,6 +1478,8 @@ textarea.form-input { resize: vertical; }
   .nav-search-bar {
     width: 100%;
   }
+
+  .nav-instagram span { display: none; }
 
   .hero {
     min-height: 100svh;
