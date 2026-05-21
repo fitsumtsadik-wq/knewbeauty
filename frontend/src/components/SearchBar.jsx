@@ -17,7 +17,6 @@ export default function SearchBar({
           placeholder="Search by product name, brand, or description…"
           value={query}
           onChange={e => onQueryChange(e.target.value)}
-          autoFocus
         />
         {query && (
           <button
