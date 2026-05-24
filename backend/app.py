@@ -352,7 +352,7 @@ def create_article():
     cur = conn.execute(
         "INSERT INTO articles (title, slug, content, excerpt, image_url, published, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?)",
         (d["title"], slug, d["content"], d.get("excerpt", ""), d.get("image_url", ""),
-         int(d.get("published", 1)), now, now),
+         int(d.get("published", 1)), now(), now()),
     )
     conn.commit()
     row = conn.execute("SELECT * FROM articles WHERE id=?", (cur.lastrowid,)).fetchone()
@@ -370,7 +370,7 @@ def update_article(aid):
     conn.execute(
         "UPDATE articles SET title=?, content=?, excerpt=?, image_url=?, published=?, updated_at=? WHERE id=?",
         (d["title"], d["content"], d.get("excerpt", ""), d.get("image_url", ""),
-         int(d.get("published", 1)), now, aid),
+         int(d.get("published", 1)), now(), aid),
     )
     conn.commit()
     row = conn.execute("SELECT * FROM articles WHERE id=?", (aid,)).fetchone()
