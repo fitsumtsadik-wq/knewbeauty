@@ -43,7 +43,7 @@ export default function ProductList({ products, loading, error, query }) {
   return (
     <section ref={topRef}>
       <p className="result-count">
-        Showing {start + 1}–{Math.min(start + PER_PAGE, products.length)} of {products.length} product{products.length !== 1 ? 's' : ''} — click any for details
+        Showing {start + 1}–{Math.min(start + PER_PAGE, products.length)} of {products.length} product{products.length !== 1 ? 's' : ''}
       </p>
       <div className="product-grid">
         {visible.map(p => (

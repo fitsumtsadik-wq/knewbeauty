@@ -9,7 +9,7 @@ export default function StoreBanner() {
         <p className="store-banner-sub">Come See Us</p>
         <h2 className="store-banner-title">Visit Our Store</h2>
         <p className="store-banner-desc">
-          Walk in and discover luxury beauty products for every shade — our team is ready to help you find your perfect look.
+          Walk in and discover luxury beauty products for every shade. Our team is ready to help you find your perfect look.
         </p>
       </div>
     </section>

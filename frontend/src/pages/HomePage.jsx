@@ -114,7 +114,7 @@ export default function HomePage() {
       <main className="main">
         <div className="section-heading">
           <h2>Find Your Products</h2>
-          <p>Search by name, brand, or category — we'll tell you exactly where to find it in store</p>
+          <p>Search by name, brand, or category. We'll tell you exactly where to find it in store.</p>
         </div>
 
         <SearchBar
