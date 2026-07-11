@@ -544,9 +544,18 @@ h1, h2, h3 {
 .clear-btn:hover { color: var(--gold); }
 
 /* ── Category filters ─────────────────────────────────────────────────────── */
-.category-filters { display: flex; flex-wrap: wrap; gap: .5rem; }
+.category-filters {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: .5rem;
+  overflow-x: auto;
+  padding-bottom: .25rem;
+  scrollbar-width: none;
+}
+.category-filters::-webkit-scrollbar { display: none; }
 
 .filter-btn {
+  flex-shrink: 0;
   padding: .4rem 1.1rem;
   border-radius: 999px;
   border: 1.5px solid rgba(201,168,76,.25);
