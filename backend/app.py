@@ -10,7 +10,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "beauty_store.db")
+DB_PATH = os.environ.get("DB_PATH", os.path.join(os.path.dirname(__file__), "beauty_store.db"))
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "knewbeauty2025")
 
 
@@ -81,7 +81,7 @@ def init_db():
 
     cur.execute("SELECT COUNT(*) FROM products")
     if cur.fetchone()[0] == 0:
-        seed_path = os.path.join(os.path.dirname(__file__), "products_seed.json")
+        seed_path = os.environ.get("SEED_PATH", os.path.join(os.path.dirname(__file__), "products_seed.json"))
         if os.path.exists(seed_path):
             import json as _json
             with open(seed_path) as f:
