@@ -44,7 +44,7 @@ export default function ProductCard({ product }) {
         <p className="product-description">{product.description}</p>
         <div className="card-footer">
           <span className="badge category">{product.category}</span>
-          <span className="badge location">📍 {product.location}</span>
+          {product.location && <span className="badge location">📍 {product.location}</span>}
           <span className={`badge stock ${product.in_stock ? 'in-stock' : 'oos'}`}>
             {product.in_stock ? 'In Stock' : 'Out of Stock'}
           </span>
