@@ -39,7 +39,6 @@ export default function ProductCard({ product }) {
             <h3 className="product-name">{product.name}</h3>
             <p className="product-brand">{product.brand}</p>
           </div>
-          <span className="product-price">${product.price.toFixed(2)}</span>
         </div>
         <p className="product-description">{product.description}</p>
         <div className="card-footer">

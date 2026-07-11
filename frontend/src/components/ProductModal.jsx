@@ -44,7 +44,6 @@ export default function ProductModal({ product, onClose }) {
               <h2 className="modal-title">{product.name}</h2>
               <p className="modal-brand">by {product.brand}</p>
             </div>
-            <p className="modal-price">${product.price.toFixed(2)}</p>
           </div>
 
           <p className="modal-description">{product.description}</p>
