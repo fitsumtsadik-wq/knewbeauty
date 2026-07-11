@@ -81,28 +81,17 @@ def init_db():
 
     cur.execute("SELECT COUNT(*) FROM products")
     if cur.fetchone()[0] == 0:
-        products = [
-            ("Rose Glow Foundation",       "LuminaBeauty", "Foundation", 34.99, "Full-coverage buildable formula with SPF 15",       1, "Aisle 3, Shelf B", ""),
-            ("HD Powder Foundation",        "ColorCraft",   "Foundation", 29.99, "Lightweight powder for a natural finish",            1, "Aisle 3, Shelf A", ""),
-            ("Velvet Matte Lipstick",       "LuminaBeauty", "Lips",       18.99, "Long-lasting matte with a comfortable feel",        1, "Aisle 1, Shelf A", ""),
-            ("Glossy Lip Gloss",            "PureGlow",     "Lips",       12.99, "High-shine, non-sticky formula",                    1, "Aisle 1, Shelf C", ""),
-            ("Coconut Lip Balm",            "PureGlow",     "Lips",        8.99, "Nourishing coconut-infused daily lip balm",         1, "Aisle 1, Shelf B", ""),
-            ("Hydra Boost Serum",           "GlowLab",      "Skincare",   52.00, "Hyaluronic acid serum for deep hydration",          1, "Aisle 5, Shelf C", ""),
-            ("SPF 50 Tinted Moisturizer",   "GlowLab",      "Skincare",   38.00, "Lightweight sun protection with a skin-tone tint",  1, "Aisle 5, Shelf A", ""),
-            ("Retinol Night Cream",         "GlowLab",      "Skincare",   65.00, "Anti-aging retinol cream for overnight renewal",    1, "Aisle 5, Shelf B", ""),
-            ("Vitamin C Brightening Mask",  "GlowLab",      "Skincare",   45.00, "Weekly brightening treatment mask",                 1, "Aisle 5, Shelf D", ""),
-            ("Smoky Eye Palette",           "ColorCraft",   "Eyes",       42.50, "12 versatile eyeshadow shades",                     1, "Aisle 2, Shelf D", ""),
-            ("Curl Defining Mascara",       "ColorCraft",   "Eyes",       16.99, "Volumizing and curling mascara",                    1, "Aisle 2, Shelf C", ""),
-            ("Waterproof Eyeliner",         "ColorCraft",   "Eyes",       14.50, "Precise waterproof gel eyeliner",                   1, "Aisle 2, Shelf B", ""),
-            ("Natural Blush",               "PureGlow",     "Cheeks",     22.00, "Buildable peachy-pink powder blush",                0, "Aisle 2, Shelf A", ""),
-            ("Bronzing Drops",              "ColorCraft",   "Face",       32.00, "Customisable liquid bronzer drops",                 1, "Aisle 3, Shelf D", ""),
-            ("Contouring Stick",            "LuminaBeauty", "Face",       28.00, "Easy-blend contouring and highlighting stick",      1, "Aisle 3, Shelf A", ""),
-            ("Setting Powder",              "LuminaBeauty", "Face",       26.99, "Translucent finishing powder for all skin tones",   0, "Aisle 3, Shelf C", ""),
-        ]
-        cur.executemany(
-            "INSERT INTO products (name, brand, category, price, description, in_stock, location, image_url) VALUES (?,?,?,?,?,?,?,?)",
-            products,
-        )
+        seed_path = os.path.join(os.path.dirname(__file__), "products_seed.json")
+        if os.path.exists(seed_path):
+            import json as _json
+            with open(seed_path) as f:
+                products = _json.load(f)
+            cur.executemany(
+                "INSERT INTO products (name, brand, category, price, description, in_stock, location, image_url) VALUES (?,?,?,?,?,?,?,?)",
+                [(p["name"], p["brand"], p["category"], p["price"],
+                  p.get("description",""), p.get("in_stock",1),
+                  p.get("location",""), p.get("image_url","")) for p in products],
+            )
 
     cur.execute("SELECT COUNT(*) FROM articles")
     if cur.fetchone()[0] == 0:
