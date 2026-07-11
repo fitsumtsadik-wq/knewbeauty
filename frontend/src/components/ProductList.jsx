@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import ProductCard from './ProductCard'
 import ProductModal from './ProductModal'
 
@@ -7,8 +7,13 @@ const PER_PAGE = 24
 export default function ProductList({ products, loading, error, query }) {
   const [selected, setSelected] = useState(null)
   const [page, setPage] = useState(1)
+  const topRef = useRef(null)
 
   useEffect(() => { setPage(1) }, [products])
+
+  function scrollToTop() {
+    topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   if (loading) return (
     <div className="state-box">
@@ -36,7 +41,7 @@ export default function ProductList({ products, loading, error, query }) {
   const visible = products.slice(start, start + PER_PAGE)
 
   return (
-    <section>
+    <section ref={topRef}>
       <p className="result-count">
         Showing {start + 1}–{Math.min(start + PER_PAGE, products.length)} of {products.length} product{products.length !== 1 ? 's' : ''} — click any for details
       </p>
@@ -52,7 +57,7 @@ export default function ProductList({ products, loading, error, query }) {
         <div className="pagination">
           <button
             className="page-btn"
-            onClick={() => { setPage(p => p - 1); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+            onClick={() => { setPage(p => p - 1); scrollToTop() }}
             disabled={page === 1}
           >
             ← Prev
@@ -60,7 +65,7 @@ export default function ProductList({ products, loading, error, query }) {
           <span className="page-info">Page {page} of {totalPages}</span>
           <button
             className="page-btn"
-            onClick={() => { setPage(p => p + 1); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+            onClick={() => { setPage(p => p + 1); scrollToTop() }}
             disabled={page === totalPages}
           >
             Next →
