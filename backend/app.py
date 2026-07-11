@@ -389,6 +389,47 @@ def delete_article(aid):
     return jsonify({"ok": True})
 
 
+# ── Image search (Open Beauty Facts, no API key needed) ──────────────────────
+
+@app.route("/api/image-search", methods=["GET"])
+def image_search():
+    import urllib.request
+    import urllib.parse
+    import json as _json
+
+    q     = request.args.get("q", "").strip()
+    brand = request.args.get("brand", "").strip()
+    if not q:
+        return jsonify([])
+
+    query   = f"{brand} {q}".strip()[:100]
+    encoded = urllib.parse.quote_plus(query)
+    url     = (
+        "https://world.openbeautyfacts.org/cgi/search.pl"
+        f"?search_terms={encoded}&json=1&page_size=8&action=process"
+    )
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "KnewBeauty/1.0"})
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data   = _json.loads(resp.read().decode("utf-8"))
+            images = []
+            for p in data.get("products", []):
+                img = (
+                    p.get("image_front_url")
+                    or p.get("image_url")
+                    or p.get("image_front_small_url")
+                )
+                if img and img.startswith("http"):
+                    images.append({
+                        "url":  img,
+                        "name": p.get("product_name", ""),
+                        "brand": p.get("brands", ""),
+                    })
+            return jsonify(images[:5])
+    except Exception as err:
+        return jsonify([])
+
+
 init_db()
 
 if __name__ == "__main__":

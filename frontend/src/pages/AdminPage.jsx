@@ -25,6 +25,8 @@ export default function AdminPage() {
   const [editingProductId, setEditingProductId] = useState(null)
   const [productMsg, setProductMsg] = useState('')
   const [uploading, setUploading] = useState(false)
+  const [imageResults, setImageResults] = useState([])
+  const [imageSearching, setImageSearching] = useState(false)
 
   // analytics
   const [analytics, setAnalytics] = useState(null)
@@ -128,6 +130,25 @@ export default function AdminPage() {
     setEditingProductId(p.id)
     setTab('Products')
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  async function findImages() {
+    const { name, brand } = productForm
+    if (!name && !brand) return
+    setImageSearching(true)
+    setImageResults([])
+    try {
+      const q   = encodeURIComponent(name)
+      const b   = encodeURIComponent(brand)
+      const res = await fetch(`${API_BASE}/api/image-search?q=${q}&brand=${b}`)
+      const data = await res.json()
+      setImageResults(data)
+      if (data.length === 0) alert('No images found. Try uploading one or paste a URL.')
+    } catch {
+      alert('Image search failed.')
+    } finally {
+      setImageSearching(false)
+    }
   }
 
   async function uploadImage(file) {
@@ -326,13 +347,31 @@ export default function AdminPage() {
                 <label className="form-label">Product Photo
                   <div className="image-upload-row">
                     <input className="form-input" value={productForm.image_url}
-                      onChange={e => setProductForm(f => ({...f, image_url: e.target.value}))}
-                      placeholder="Paste image URL, or click Upload Photo →" />
+                      onChange={e => { setProductForm(f => ({...f, image_url: e.target.value})); setImageResults([]) }}
+                      placeholder="Paste URL, search, or upload →" />
+                    <button type="button" className="btn-find-image" disabled={imageSearching}
+                      onClick={findImages} title="Auto-search for this product's photo">
+                      {imageSearching ? '🔍…' : '🔍 Find'}
+                    </button>
                     <button type="button" className="btn-upload" disabled={uploading}
                       onClick={() => { const inp = document.createElement('input'); inp.type='file'; inp.accept='image/*'; inp.onchange=e=>uploadImage(e.target.files[0]); inp.click() }}>
-                      {uploading ? 'Uploading…' : '📷 Upload'}
+                      {uploading ? '…' : '📷'}
                     </button>
                   </div>
+                  {imageResults.length > 0 && (
+                    <div className="image-results">
+                      <p className="image-results-hint">Click a photo to use it:</p>
+                      <div className="image-results-grid">
+                        {imageResults.map((img, i) => (
+                          <button key={i} type="button" className="image-result-btn"
+                            onClick={() => { setProductForm(f => ({...f, image_url: img.url})); setImageResults([]) }}
+                            title={img.name || img.brand}>
+                            <img src={img.url} alt={img.name} onError={e => e.target.parentElement.style.display='none'} />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </label>
                 <label className="form-label">Description
                   <textarea className="form-input" rows={2} value={productForm.description}
